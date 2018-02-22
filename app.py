@@ -29,7 +29,7 @@ def bot():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.userId))
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.source.userId))
 
 if __name__ == "__main__":
    app.run()
