@@ -12,8 +12,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return 'This is chatbot server.'
-@app.route('/bot', methods=['POST'])
 
+@app.route('/bot', methods=['POST'])
 def bot():
     # ข้อความที่ต้องการส่งกลับ
     replyStack = list()
