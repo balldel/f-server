@@ -8,11 +8,13 @@ InvalidSignatureError
 from linebot.models import (
 MessageEvent, TextMessage, TextSendMessage,
 )
+
 app = Flask(__name__)
 line_bot_api = LineBotApi('fSDjokoamI2lnlDZE8GJ2+PoZBn8DHsDba8zCtW57zR++3X+Iiy5jwtMQFB1oynrcHd3pU4g5S3IikMXzTmCkPueLieW/ilvst42POA6I6cyt/+z3u13OPxjof+Jq12l046ITxA2+sSMC95uRwEdHQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('a3e92910d347b8dcda29a8bfaba8e3bc')
+
 @app.route("/bot", methods=['POST'])
-def callback():
+def bot():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
     # get request body as text
@@ -27,8 +29,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
-    event.reply_token,
-    TextSendMessage(text=event.message.text))
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
+
 if __name__ == "__main__":
    app.run()
