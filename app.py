@@ -19,6 +19,7 @@ def bot():
     signature = request.headers['X-Line-Signature']
     # get request body as text
     body = request.get_data(as_text=True)
+    print(body)
     app.logger.info("Request body: " + body)
     # handle webhook body
     try:
@@ -29,7 +30,7 @@ def bot():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event))
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.source.type))
 
 if __name__ == "__main__":
-   app.run()
+    app.run()
