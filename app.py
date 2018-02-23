@@ -19,7 +19,7 @@ def bot():
     signature = request.headers['X-Line-Signature']
     # get request body as text
     body = request.get_data(as_text=True)
-    print(body['events']['source']['userId'])
+    print(body['events'])
     app.logger.info("Request body: " + body)
     # handle webhook body
     try:
