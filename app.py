@@ -18,9 +18,10 @@ def bot():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
     # get request body as text
-    # body = request.get_data(as_text=True)
-    body = request.get_data()
-    print(body.type)
+    body = request.get_data(as_text=True)
+    data = request.json
+    print(data)
+    print(data.type)
     app.logger.info("Request body: " + body)
     # handle webhook body
     try:
