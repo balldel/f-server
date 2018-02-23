@@ -21,7 +21,7 @@ def bot():
     body = request.get_data(as_text=True)
     data = request.json
     print(data)
-    # print(data['events']['source']['userId'])
+    print(data['events'][0]['source']['userId'])
     app.logger.info("Request body: " + body)
     # handle webhook body
     try:
