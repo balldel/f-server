@@ -24,6 +24,11 @@ def bot():
     print("USERID :"+ data['events'][0]['source']['userId'])
     print("Massage :"+ data['events'][0]['message']['text'])
     app.logger.info("Request body: " + body)
+    
+    massage = data['events'][0]['message']['text']
+    if 'scan>' in massage:
+        countrycode = massage.split('>')[1]
+        print(countrycode)
     # handle webhook body
     try:
         handler.handle(body, signature)
