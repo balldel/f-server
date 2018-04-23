@@ -23,7 +23,7 @@ def bot():
     data = request.json
     print(data)
     print('USERID :'+ data['events'][0]['source']['userId'])
-    # app.logger.info("Request body: " + body)
+    app.logger.info("Request body: " + body)
     # handle webhook body
     try:
         handler.handle(body, signature)
