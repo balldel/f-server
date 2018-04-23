@@ -15,14 +15,14 @@ handler = WebhookHandler('a3e92910d347b8dcda29a8bfaba8e3bc')
 
 @app.route("/bot", methods=['GET'])
 def bot():
-    print('hello')
+    # print('hello')
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
     # get request body as text
     body = request.get_data(as_text=True)
     data = request.json
     print(data)
-    print("USERID :"+ data['events'][0]['source']['userId'])
+    # print("USERID :"+ data['events'][0]['source']['userId'])
     app.logger.info("Request body: " + body)
     # handle webhook body
     try:
