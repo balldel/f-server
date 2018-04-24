@@ -32,7 +32,7 @@ def bot():
         countrycode = massage.split('>')[1]
         print(countrycode)
         r = requests.get('http://52.76.34.87:8000/skyscanner/api/country/?country='+countrycode)
-        print(r)
+        print(r.text)
     # handle webhook body
     try:
         handler.handle(body, signature)
