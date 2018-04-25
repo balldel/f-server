@@ -1,19 +1,15 @@
 from flask import Flask, request, abort
-from linebot import (
-LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-InvalidSignatureError
-)
-from linebot.models import (
-MessageEvent, TextMessage, TextSendMessage,
-)
+from multiprocessing.dummy import Pool
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 import requests 
 
 app = Flask(__name__)
 line_bot_api = LineBotApi('fSDjokoamI2lnlDZE8GJ2+PoZBn8DHsDba8zCtW57zR++3X+Iiy5jwtMQFB1oynrcHd3pU4g5S3IikMXzTmCkPueLieW/ilvst42POA6I6cyt/+z3u13OPxjof+Jq12l046ITxA2+sSMC95uRwEdHQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('a3e92910d347b8dcda29a8bfaba8e3bc')
+pools = Pool(2)
 
 @app.route("/bot", methods=['POST'])
 def bot():
@@ -31,8 +27,9 @@ def bot():
     if 'scan>' in massage:
         countrycode = massage.split('>')[1]
         print(countrycode)
-        r = requests.get('http://13.251.49.123:8000/skyscanner/api/country/?country='+countrycode)
-        print(r.text)
+        pools.apply_async(requests.get, ['http://13.251.49.123:8000/skyscanner/api/country/?country='+countrycode ])
+        # r = requests.get('http://13.251.49.123:8000/skyscanner/api/country/?country='+countrycode)
+        print("SENT")
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -52,7 +49,7 @@ def warakorn():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.source.type))
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text="ได้รับข้อมูลแล้วครับ ผมจะรีบหาข้อมูลแล้วส่งกลับไปครับ"))
 
 if __name__ == "__main__":
     app.run()
