@@ -27,7 +27,7 @@ def bot():
     if 'scan>' in massage:
         countrycode = massage.split('>')[1]
         print(countrycode)
-        pools.apply_async(requests.get, ['http://35.177.83.164:8000/skyscanner/api/country/?country='+countrycode ])
+        pools.apply_async(requests.get, ['http://13.251.22.242:8000/skyscanner/api/country/?country='+countrycode ])
         # r = requests.get('http://13.251.49.123:8000/skyscanner/api/country/?country='+countrycode)
         print("SENT")
     # handle webhook body
